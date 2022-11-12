@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/estilo.css}">
+    <title>Document</title>
+</head>
+<body>
+    
+    <header class="header">
+        <h1>Moveraki</h1>
+        <div class="login-info">
+            <!--span sec:authentication="principal.name"></!--span-->
+            <a href="/logout">
+                <span class="material-icons">logout</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <a class="button" href="/transporte/novo" sec:authorize-url="POST /transporte">Cadastrar Transporte</a>
+    </div>
+
+    <div class="alert success" role="alert" th:if="${alerta != null}" >
+        <span th:text="${alerta}"></span>
+    </div>
+
+    <main class="cards">
+        <div class="card animated" th:each="transporte : ${transportes}">
+            <h3 th:text="${transporte.identificador}"></h3>
+            <h4 th:text="${transporte.origem}"></h4>
+            <h4 th:text="${transporte.destino}"></h4>
+        
+            <div class="actions">
+                <a th:href="${'/transporte/delete/' + transporte.id}" sec:authorize="hasRole('ADMIN')">
+                    <span class="material-icons">delete</span>
+                </a>
+                <a th:href="${'/transporte/' + transporte.id}" sec:authorize="hasRole('ADMIN')">
+                    <span class="material-icons">edit</span>
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

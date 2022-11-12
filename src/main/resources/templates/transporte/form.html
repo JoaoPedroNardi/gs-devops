@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/estilo.css}">
+    <title>Moveraki</title>
+</head>
+<body>
+    <h1>Cadastrar</h1>
+
+    <div class="card lg">
+    <form action="/transporte" method="POST" class="vertical-form" th:object="${transporte}">
+        <input type="hidden" th:field="*{id}" id="id">
+
+        <label for="identificador" class="hide">Identificador</label>
+        <input placeholder="identificador" type="text" id="identificador" 
+               th:classappend="${#fields.hasErrors('identificador')}?invalid" th:field="*{identificador}">
+        <span th:errors="*{identificador}"></span>
+
+        <label for="origem" class="hide">Origem</label>
+        <input placeholder="origem" type="text" id="origem" 
+               th:classappend="${#fields.hasErrors('origem')}?invalid" th:field="*{origem}">
+        <span th:errors="*{origem}"></span>
+
+        <label for="destino" class="hide">Destino</label>
+        <input placeholder="destino" type="text" id="destino" 
+               th:classappend="${#fields.hasErrors('destino')}?invalid" th:field="*{destino}">
+        <span th:errors="*{destino}"></span>
+        
+        <div class="buttons">
+            <button class="button default">Cancelar</button>
+            <input class="button" type="submit" th:value="${transporte.id==null}?Cadastrar:Alterar" />
+        </div>
+        
+    </form>
+    </div>
+
+
+</body>
+</html>
