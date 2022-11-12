@@ -20,22 +20,22 @@ public class SecurityConfiguration {
             .authorizeHttpRequests()
              
                 .antMatchers(HttpMethod.GET, "/api/usuario/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/usuario").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/api/usuario/**").authenticated()
-                .antMatchers(HttpMethod.PUT, "/api/usuario/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/usuario").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/usuario/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/usuario/**").permitAll()
               
                 .antMatchers(HttpMethod.GET, "/api/transporte/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/transporte/**").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/api/transporte/**").authenticated()
-                .antMatchers(HttpMethod.PUT, "/api/transporte/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/transporte/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/transporte/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/transporte/**").permitAll()
 
                 .antMatchers(HttpMethod.POST, "/api/entrar").permitAll()
 
                 .antMatchers("/h2-console/**").permitAll()
 
-                .antMatchers(HttpMethod.GET,"/transporte/**").authenticated()
-                .antMatchers(HttpMethod.GET,"/transporte/delete/**").authenticated()
-                .antMatchers(HttpMethod.POST,"/transporte/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/transporte/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/transporte/delete/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/transporte/**").permitAll()
 
                 .antMatchers("/css/**").permitAll()
 
