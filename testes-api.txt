@@ -1,0 +1,48 @@
+Usuario: cristian@gmail.com
+Senha: trm436@rmt
+
+TRANSPORTE
+
+id: 1
+identificador: "E198"
+origem: "Praça Sant'Ana"
+destino: "Terminal Estudantes"
+
+id: 2
+identificador: "E212"
+origem: "Shopping LaVille"
+destino: "Terminal Estudantes"
+
+id: 3
+identificador: "E213"
+origem: "Hospital Alves Neto"
+destino: "Terminal Estudantes"
+
+id: 4
+identificador: "E214"
+origem: "Shopping Center"
+destino: "Terminal Estudantes"
+
+USUARIO
+
+id: 1
+nome:"Cristian"
+email:"cristian@gmail.com"
+username:"cristian@gmail.com"
+
+id: 2
+nome:"Pedro"
+email:"pedro@fiap.com.br"
+username:"pedro@fiap.com.br"
+
+id: 3
+nome:"Luiza"
+email:"luizaml@gmail.com"
+username:"luizaml@gmail.com"
+
+id: 4
+nome:"Tereza"
+email:"tgoncalves@fiap.com.br"
+username:"tgoncalves@fiap.com.br"
+
+
