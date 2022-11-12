@@ -1,0 +1,45 @@
+node {
+
+  def resourceGroupName = 'rg-GlobalDev'
+  def resourceGroupLocation = 'brazilsouth'
+  def appServicePlanName = 'globalPlan'
+  def appServicePlanTier = 'FREE'
+  def webAppName = 'global-rm85846'
+  def webAppRuntime = '"java:11:Java SE:11"'
+  def packagePath = 'target/moverakiapi-0.0.1-SNAPSHOT.jar'
+
+  stage('Extrair Codigo Fonte') {
+    echo 'Obtendo o Código Fonte ...'
+    checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/JoaoPedroNardi/gs-devops.git']]])
+  }
+
+  stage('Build') {
+    echo 'Empacotando o projeto...'
+    sh '/opt/maven/bin/mvn clean package'
+  }
+
+  stage('Credenciais Azure') {
+    echo 'Obtendo credenciais...'
+    withCredentials([usernamePassword(credentialsId: 'AzureService', 
+      passwordVariable: 'AZURE_CLIENT_SECRET',
+      usernameVariable: 'AZURE_CLIENT_ID')]) {
+      echo 'Logando na Azure...'
+      sh 'az login -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET'
+    }
+  }
+
+  stage('Criar Infra') {
+    echo 'Criando o Grupo de Recursos...'
+    sh "az group create --name rg-GlobalDev --location brazilsouth"
+    echo 'Criando Plano de Serviço...'
+    sh "az appservice plan create --name globalPlan --resource-group rg-GlobalDev --sku FREE"
+    echo 'Criando o Web App...'
+    sh 'az webapp create --name global-rm85846 --plan globalPlan --resource-group rg-GlobalDev --runtime "java:11:Java SE:11"'
+  }
+
+  stage('Deploy') {
+     echo 'Realizando o Deploy na Azure...'
+     sh "az webapp deploy --resource-group rg-GlobalDev --name global-rm85846 --src-path target/moverakiapi-0.0.1-SNAPSHOT.jar --type jar"
+  }
+
+}
